@@ -1,30 +1,46 @@
-package br.uniesp.poo.desafios.exercicioArray;
+package br.uniesp.poo.desafios.exercicioIfElse;
+// Tem-se um conjunto de dados contendo a altura e o sexo (masculino, feminino) de 10 pessoas.
+// Fazer um algoritmo que calcule e escreva:
+//a maior e a menor altura do grupo;
+//média de altura do sexo igual a masculino;
+//o número de registros de sexo igual a feminino.
+import com.sun.source.tree.UsesTree;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
     public static void main(String[] args) {
-        Numeros num = new Numeros();
+        Dados dados = new Dados();
         Scanner scanner = new Scanner(System.in);
+        float[] alturas = new float[10];
 
-        num.setMaiorNumero(0);
-        num.setMenorNumero(Integer.MAX_VALUE);
-        num.setSomaPares(0);
+        dados.setMenorAltura(0f);
+        dados.setMenorAltura(0F);
+        dados.setNumHomens(0);
+        dados.setNumMulheres(0);
 
-        for (int i = 0; i < 5; i++ ){
-            System.out.println("Informe os números que estarão no array: ");
-            int num1 = scanner.nextInt();
-            num.atualMaiorNumero(num1);
-            num.atualMenorAltura(num1);
-            num.somaNumerosPares(num1);
-            num.lista.add(num1);
 
+        for (int i = 0; i < 10; i++) {
+            System.out.print("Informe o sexo da " + (i + 1) + "ª pessoa  (m/f): ");
+            dados.setSexo(scanner.next());
+            System.out.println("Sua altura: ");
+            dados.setAltura(scanner.nextFloat());
+            alturas[i] = dados.getAltura();
+
+            dados.atualMaiorAltura(dados.getAltura());
+            dados.mediaMasculino(dados.getAltura(), dados.getSexo());
+            dados.contaFeminino(dados.getSexo());
         }
-        num.somaNumeros();
-        System.out.println("O maior número é:"+num.getMaiorNumero());
-        System.out.println("O menor número é: " +num.getMenorNumero());
-        System.out.println("A soma de números pares é: "+num.getSomaPares());
 
+        dados.setMenorAltura(dados.getMaiorAltura());
+
+
+        for (int i = 0; i < 10; i++) {
+            dados.atualMenorAltura(alturas[i]);
+        }
+        System.out.printf("\nMaior altura do grupo: %.2fm.\n", dados.getMaiorAltura());
+        System.out.printf("Menor altura do grupo: %.2fm.\n", dados.getMenorAltura());
+        System.out.printf("Média de altura dos homens: %.2fm.\n", dados.getMediaHomens());
+        System.out.println("Número total de mulheres: " + dados.getNumMulheres());
     }
 }
